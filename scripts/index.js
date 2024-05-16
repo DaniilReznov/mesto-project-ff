@@ -8,7 +8,7 @@ const placesList = content.querySelector(".places__list");
 // @todo: Функция создания карточки
 function createCard(card) {
   const createElement = cardTemplate.querySelector(".card").cloneNode(true);
-  const cardImage = card.querySelector(".card__image");
+  const cardImage = createElement.querySelector(".card__image");
 
   createElement.querySelector(".card__title").textContent = card.name;
   cardImage.src = card.link;
@@ -29,7 +29,7 @@ function deleteCard(delCard) {
 // @todo: Вывести карточки на страницу
 function displayOnPage(cards) {
   cards.forEach(element => {
-    const card = newCard(element);
+    const card = createCard(element);
     placesList.append(card);
   });
 }
