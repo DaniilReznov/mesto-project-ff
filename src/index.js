@@ -2,7 +2,6 @@ import './pages/index.css';
 import { initialCards } from './scripts/cards.js';
 import { createCard } from './scripts/card.js';
 import { openPopup, closePopup } from './scripts/modal.js';
-export { popupImageClose };
 
 // @todo: Темплейт карточки
 const cardTemplate = document.querySelector("#card-template").content;
@@ -40,7 +39,7 @@ const popupImageText = popupImageContent.querySelector('.popup__caption');
 // @todo: Вывести карточки на страницу
 function displayOnPage(cards) {
   cards.forEach(element => {
-    const card = createCard(element, deleteCard, openImage, closePopup);
+    const card = createCard(element, deleteCard, openImage, closePopup, popupImageClose);
     placesList.append(card);
   });
 }

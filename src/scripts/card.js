@@ -1,11 +1,10 @@
 export { createCard };
-import { popupImageClose } from '../index.js';
 
 // @todo: Темплейт карточки
 const cardTemplate = document.querySelector("#card-template").content;
 
 // @todo: Функция создания карточки
-function createCard(card, deleteCard, openImage, closePopup) {
+function createCard(card, deleteCard, openImage) {
   const cardElement = getCardTemplate();
   const cardImage = cardElement.querySelector(".card__image");
   cardElement.querySelector(".card__title").textContent = card.name;
@@ -21,8 +20,6 @@ function createCard(card, deleteCard, openImage, closePopup) {
   likeButton.addEventListener('click', () => toggleLikeButton(likeButton));
 
   cardImage.addEventListener('click', () => openImage(card));
-
-  popupImageClose.addEventListener('click', () => closePopup(card));
 
   return cardElement;
 }
