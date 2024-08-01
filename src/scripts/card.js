@@ -29,7 +29,7 @@ function createCard(element, deleteCard, openImage, userID) {
   const likesNumber = element.likes.length;
   const likeCount = cardElement.querySelector(".card__like-num");
   const likeCard = cardElement.querySelector(".card__like-button");
-  likeCount.innerHTML = likesNumber;
+  likeCount.textContent = likesNumber;
 
   likeCard.addEventListener("click", () => {
     toggleLikeButton(likeCard, element, userID, likeCount);
@@ -42,21 +42,20 @@ function createCard(element, deleteCard, openImage, userID) {
 
 function toggleLikeButton(likeButton, dataCard, user, count) {
   if (likeButton.classList.contains("card__like-button_is-active")) {
-    likeButton.classList.remove("card__like-button_is-active");
-
     removeLike(dataCard)
       .then((data) => {
+        likeButton.classList.remove("card__like-button_is-active");
         const currentCount = parseInt(data.likes.length, 10);
         count.textContent = currentCount;
       })
       .catch((err) => {
         console.log(err);
       });
-  } else {
-    likeButton.classList.add("card__like-button_is-active");
-
+  }
+  else {
     setLIke(dataCard)
       .then((data) => {
+        likeButton.classList.add("card__like-button_is-active");
         const currentCount = parseInt(data.likes.length, 10);
         count.textContent = currentCount;
       })

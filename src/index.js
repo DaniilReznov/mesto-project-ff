@@ -4,7 +4,6 @@ import { openPopup, closePopup } from "./scripts/modal.js";
 import {
   enableValidation,
   clearValidation,
-  validationConfig,
 } from "./scripts/validation.js";
 import {
   savePhoto,
@@ -62,6 +61,17 @@ const popupInputPhoto = formEditPhoto.querySelector(
   ".popup__input_type_url_photo"
 );
 
+const profilePen = document.querySelector(".profile__edit-pen");
+
+const validationConfig = {
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__button",
+  inactiveButtonClass: "popup__button_disabled",
+  inputErrorClass: "form__input_type_error",
+  errorClass: "popup__input-error",
+};
+
 // @todo: Вывести карточки на страницу
 function displayOnPage(cards, userID) {
   cards.forEach((element) => {
@@ -98,7 +108,7 @@ editProfile.addEventListener("click", function (e) {
 buttonSubmitEditProfileForm.addEventListener("submit", function (e) {
   e.preventDefault();
   const button = openProfile.querySelector(".popup__button");
-  button.innerHTML = "Сохранение...";
+  button.textContent = "Сохранение...";
 
   const newUserFromInput = {
     name: nameProfile.value,
@@ -106,8 +116,8 @@ buttonSubmitEditProfileForm.addEventListener("submit", function (e) {
   };
   saveUser(newUserFromInput)
     .then((data) => {
-      profileTitle.textContent = nameProfile.value;
-      profileDesc.textContent = descProfile.value;
+      profileTitle.textContent = data.name;
+      profileDesc.textContent = data.about;
 
       closePopup(openProfile);
     })
@@ -115,7 +125,7 @@ buttonSubmitEditProfileForm.addEventListener("submit", function (e) {
       console.log(err);
     })
     .finally(() => {
-      button.innerHTML = "Сохранить";
+      button.textContent = "Сохранить";
     });
 });
 
@@ -130,7 +140,10 @@ buttonNewCard.addEventListener("click", function (e) {
   e.preventDefault();
   clearValidation(formNewCard, validationConfig);
   openPopup(formAddCard);
-  reset();
+  resetFormNewCard();
+  const button = formNewCard.querySelector(".popup__button");
+  button.disabled = true;
+  button.classList.add(validationConfig.inactiveButtonClass);
 });
 
 // Закрыть доб. карточек
@@ -143,6 +156,7 @@ closeNewCard.addEventListener("click", function (e) {
 formAddCard.addEventListener("submit", function (e) {
   e.preventDefault();
   const button = formNewCard.querySelector(".popup__button");
+  button.textContent = "Сохранение...";
   const newCardFromInput = {
     name: nameCard.value,
     link: urlCard.value,
@@ -168,16 +182,16 @@ formAddCard.addEventListener("submit", function (e) {
       console.log(err);
     })
     .finally(() => {
-      button.innerHTML = "Сохранить...";
-      console.log(button);
+      button.textContent = "Сохранить";
     });
 });
 
 // функция открытия изображения карточки
 function openImage(cardElement) {
+  console.log(cardElement);
   popupImagePhoto.src = cardElement.link;
   popupImageText.textContent = cardElement.name;
-  popupImageText.alt = cardElement.name;
+  popupImagePhoto.alt = cardElement.name;
 
   openPopup(popupImage);
 }
@@ -206,9 +220,8 @@ function deleteCard(delCard, data) {
     });
 }
 
-function reset() {
-  nameCard.value = "";
-  urlCard.value = "";
+function resetFormNewCard() {
+  formNewCard.reset();
 }
 
 Promise.all([updateUser(), updateCards()])
@@ -232,13 +245,11 @@ Promise.all([updateUser(), updateCards()])
 
 profileImage.addEventListener("mouseenter", function (e) {
   e.preventDefault();
-  const profilePen = document.getElementById("edit-pen");
   profilePen.style.display = "flex";
 });
 
 profileImage.addEventListener("mouseleave", function (e) {
   e.preventDefault();
-  const profilePen = document.getElementById("edit-pen");
   profilePen.style.display = "none";
 });
 
@@ -255,7 +266,7 @@ popupEditPhotoClose.addEventListener("click", function (e) {
 formEditPhoto.addEventListener("submit", function (e) {
   e.preventDefault();
   const button = formEditPhoto.querySelector(".popup__button");
-  button.innerHTML = "Сохранение...";
+  button.textContent = "Сохранение...";
 
   const newUserPhoto = {
     avatar: popupInputPhoto.value,
@@ -270,7 +281,7 @@ formEditPhoto.addEventListener("submit", function (e) {
       console.log(err);
     })
     .finally(() => {
-      button.innerHTML = "Сохранить";
+      button.textContent = "Сохранить";
       console.log(button);
     });
 });

@@ -10,9 +10,9 @@ export {
 };
 
 const config = {
-  baseUrl: "https://nomoreparties.co/v1/wff-cohort-16",
+  baseUrl: "https://nomoreparties.co/v1/wff-cohort-19",
   headers: {
-    authorization: "970a184a-b58a-464e-9752-9637c2204b5a",
+    authorization: "52944e94-3707-4c10-aec3-ece5764d2f4b",
     "Content-Type": "application/json",
   },
 };
