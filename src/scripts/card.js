@@ -1,4 +1,4 @@
-export { createCard };
+export { createCard, deleteCard };
 import { setLIke, removeLike } from "./api.js";
 
 // @todo: Темплейт карточки
@@ -38,6 +38,19 @@ function createCard(element, deleteCard, openImage, userID) {
   cardImage.addEventListener("click", () => openImage(element));
 
   return cardElement;
+}
+
+// @todo: Функция удаления карточки
+function deleteCard(delCard, data) {
+  console.log("Зашли в функцию в Index:" + delCard + " | " + data);
+  deleteCardServ(data)
+    .then((data) => {
+      console.log(data);
+      delCard.remove();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 }
 
 function toggleLikeButton(likeButton, dataCard, user, count) {

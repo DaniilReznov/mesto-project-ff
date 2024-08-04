@@ -1,5 +1,5 @@
 import "./pages/index.css";
-import { createCard } from "./scripts/card.js";
+import { createCard, deleteCard } from "./scripts/card.js";
 import { openPopup, closePopup } from "./scripts/modal.js";
 import {
   enableValidation,
@@ -138,12 +138,12 @@ closeProfile.addEventListener("click", function (e) {
 // открыть окно добавление карточки
 buttonNewCard.addEventListener("click", function (e) {
   e.preventDefault();
-  clearValidation(formNewCard, validationConfig);
   openPopup(formAddCard);
   resetFormNewCard();
-  const button = formNewCard.querySelector(".popup__button");
-  button.disabled = true;
-  button.classList.add(validationConfig.inactiveButtonClass);
+  clearValidation(formNewCard, validationConfig);
+  // const button = formNewCard.querySelector(".popup__button");
+  // button.disabled = true;
+  // button.classList.add(validationConfig.inactiveButtonClass);
 });
 
 // Закрыть доб. карточек
@@ -207,19 +207,6 @@ document.querySelectorAll(".popup").forEach((e) => {
   e.classList.add("popup_is-animated");
 });
 
-// @todo: Функция удаления карточки
-function deleteCard(delCard, data) {
-  console.log("Зашли в функцию в Index:" + delCard + " | " + data);
-  deleteCardServ(data)
-    .then((data) => {
-      console.log(data);
-      delCard.remove();
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-}
-
 function resetFormNewCard() {
   formNewCard.reset();
 }
@@ -231,11 +218,6 @@ Promise.all([updateUser(), updateCards()])
     profileImage.style.backgroundImage = `url(${userData.avatar})`;
 
     const pageOwnerId = userData._id;
-
-    cardData.forEach((card) => {
-      const cardOwnerId = card.owner._id;
-      const cardId = card._id;
-    });
 
     displayOnPage(cardData, pageOwnerId);
   })

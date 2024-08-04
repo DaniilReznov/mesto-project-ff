@@ -36,3 +36,7 @@
     line-height: 15px;
   }
 }
+
+input:required:invalid ~ button.popup__button {
+  pointer-events: none;
+}

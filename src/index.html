@@ -47,14 +47,14 @@
           <button type="button" class="popup__close"></button>
           <h3 class="popup__title">Редактировать профиль</h3>
           <form class="popup__form" name="edit-profile" novalidate>
-            <input id="name-input" type="text" pattern="\s[a-zA-Zа-яёА-ЯЁ-]""
+            <input id="name-input" type="text" pattern="[A-Za-zА-Яа-яЁё\s\-]+"
             data-error-message="Разрешены только латинские, кириллические буквы,
             знаки дефиса и пробелы." minlength="2" maxlength="40" name="name"
             class="popup__input popup__input_type_name" placeholder="Имя"
             required>
             <span class="name-input-error"></span>
             <input id="description-input" type="text"
-            pattern="\s[a-zA-Zа-яёА-ЯЁ-]"" data-error-message="Разрешены только
+            pattern="[A-Za-zА-Яа-яЁё\s\-]+" data-error-message="Разрешены только
             латинские, кириллические буквы, знаки дефиса и пробелы."
             minlength="2" maxlength="400" name="description" class="popup__input
             popup__input_type_description" placeholder="Занятие" required>
@@ -71,7 +71,7 @@
           <h3 class="popup__title">Новое место</h3>
           <form class="popup__form" name="new-place" novalidate>
             <input id="card-name-input" type="text" name="place-name"
-            minlength="2" maxlength="30" pattern="\s[a-zA-Zа-яёА-ЯЁ-]""
+            minlength="2" maxlength="30" pattern="[A-Za-zА-Яа-яЁё\s\-]+"
             data-error-message="Разрешены только латинские, кириллические буквы,
             знаки дефиса и пробелы." class="popup__input
             popup__input_type_card-name" placeholder="Название" required>
